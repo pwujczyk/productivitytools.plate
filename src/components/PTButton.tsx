@@ -2,14 +2,13 @@ import React, { useState } from "react";
 
 export interface IPTButtonProps
 extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>{
-    initialValue?:Number,
     label?:string
 }
 
 export const PTButtom: React.FunctionComponent<IPTButtonProps>=(props)=>{
-    const{initialValue,label}=props;
+    const{label}=props;
 
-    const [count,setCount]=useState(initialValue||0);
+    const [count,setCount]=useState(0);
 
     const clickButton=()=>{setCount(count+1)}
 
