@@ -2,9 +2,11 @@
   "name": "productivitytools.plate",
   "version": "0.0.1",
   "description": "PT implementation of plate",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files":["dist"],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf dist/ && npm run build:esm",
+	"build:esm":"tsc"
   },
   "repository": {
     "type": "git",
@@ -23,5 +25,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^5.0.4"
-  }
+  },
+  "peerDependencies": {
+   "react-dom": "^18.2.0",
+   "typescript": "^5.0.4"
+}
 }
