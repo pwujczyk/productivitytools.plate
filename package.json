@@ -1,0 +1,27 @@
+{
+  "name": "productivitytools.plate",
+  "version": "0.0.1",
+  "description": "PT implementation of plate",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/pwujczyk/productivitytools.plate.git"
+  },
+  "author": "Pawel Wujczyk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pwujczyk/productivitytools.plate/issues"
+  },
+  "homepage": "https://github.com/pwujczyk/productivitytools.plate#readme",
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "@types/react": "^18.0.35",
+    "@types/react-dom": "^18.0.11",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.0.4"
+  }
+}
