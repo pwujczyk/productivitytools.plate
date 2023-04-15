@@ -3,10 +3,13 @@
   "version": "0.0.1",
   "description": "PT implementation of plate",
   "main": "dist/index.js",
-  "files":["dist"],
+  "module": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rm -rf dist/ && npm run build:esm",
-	"build:esm":"tsc"
+    "build:esm": "tsc"
   },
   "repository": {
     "type": "git",
@@ -22,12 +25,11 @@
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "typescript": "^5.0.4"
   },
   "peerDependencies": {
-   "react-dom": "^18.2.0",
-   "typescript": "^5.0.4"
-}
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.0.4"
+  }
 }

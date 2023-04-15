@@ -5,17 +5,17 @@ extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, H
     label?:string
 }
 
-export const PTButtom: React.FunctionComponent<IPTButtonProps>=(props)=>{
+export const PTButton: React.FunctionComponent<IPTButtonProps>=(props)=>{
     const{label}=props;
 
-    const [count,setCount]=useState(0);
+    const [count,setCount]=useState<number>(0);
 
     const clickButton=()=>{setCount(count+1)}
 
     return(
         <p>
             <span>Counter: {count}</span>
-        <button onClick={clickButton}>{label||"Click me!"}</button>
+            <button onClick={clickButton}>{label||"Click me!"}</button>
         </p>
     )
 }
