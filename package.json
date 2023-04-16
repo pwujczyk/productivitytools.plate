@@ -25,11 +25,22 @@
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
+    "@types/styled-components": "^5.1.26",
+    "slate": "^0.93.0",
+    "slate-history": "^0.93.0",
+    "slate-hyperscript": "^0.77.0",
+    "slate-react": "^0.93.0",
+    "styled-components": "^5.3.9",
     "typescript": "^5.0.4"
   },
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@udecode/plate": "^20.6.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
