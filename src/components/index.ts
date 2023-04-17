@@ -1,2 +1,2 @@
 export * from './PTButton'
-export * from './PTPlate'
+// export * from './PTPlate'
