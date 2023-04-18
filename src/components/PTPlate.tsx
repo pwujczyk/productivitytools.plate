@@ -9,7 +9,7 @@ export interface IPTPlate extends React.DetailedHTMLProps<React.HTMLAttributes<H
 export const PTPlate: React.FunctionComponent<IPTPlate> = (props) => {
 
     const editableProps: TEditableProps = {
-        placeholder: 'Type...',
+        placeholder: 'Type1...',
       };
   return (
     <p>

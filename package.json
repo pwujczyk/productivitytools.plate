@@ -2,14 +2,17 @@
   "name": "productivitytools.plate",
   "version": "0.0.1",
   "description": "PT implementation of plate",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "dist/index",
+  "typings": "dist/index.js",
+  "module": "dist/index",
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "rm -rf dist/ && npm run build:esm",
-    "build:esm": "tsc"
+    "build:esm": "tsc",
+    "builds": "react-scripts build",
+    "removemodules": "npm npkill"
   },
   "repository": {
     "type": "git",
@@ -21,39 +24,26 @@
     "url": "https://github.com/pwujczyk/productivitytools.plate/issues"
   },
   "homepage": "https://github.com/pwujczyk/productivitytools.plate#readme",
-  "devDependencies": {
-    "@types/jest": "^29.5.0",
-    "@types/node": "^18.15.11",
+  "dependencies": {
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
-    "@types/styled-components": "^5.1.26",
-    "slate": "^0.93.0",
-    "slate-history": "^0.93.0",
-    "slate-hyperscript": "^0.77.0",
-    "slate-react": "^0.93.0",
-    "styled-components": "^5.3.9",
-    "typescript": "^5.0.4"
-  },
-  "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "typescript": "^5.0.4"
-  },
-  "dependencies": {
-    "@styled-icons/boxicons-regular": "^10.47.0",
-    "@styled-icons/foundation": "^10.46.0",
-    "@styled-icons/material": "^10.47.0",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^18.15.11",
     "@udecode/plate": "^20.6.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "@udecode/plate-basic-elements": "^20.4.0",
+    "styled-components": "^5.3.9",
+    "typescript": "^5.0.4",
+    "web-vitals": "^2.1.4",
     "react-scripts": "5.0.1",
     "slate": "^0.93.0",
     "slate-history": "^0.93.0",
     "slate-hyperscript": "^0.77.0",
-    "slate-react": "^0.93.0",
-    "styled-components": "^5.3.9"
-  }
+    "slate-react": "^0.93.0"
+  },
+  "peerDependencies": {}
 }
