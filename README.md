@@ -12,6 +12,8 @@
 
 # PTPlate
 
+My implementation of the Plate editor. I will be using it in my projects.
+Right now here I list the problems which I have with creating it and running. 
 
 ## Issues
 Use state not working, empty screen is showing and in console we see errror
