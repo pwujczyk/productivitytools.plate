@@ -2,10 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Plate, TEditableProps } from "@udecode/plate";
 import { MyParagraphElement } from "./typescript/plateTypes";
 
-export interface IPTPlate extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
-  content: string;
-}
-
 
 const initialValue = (content: string) => [
   {
@@ -17,8 +13,11 @@ const initialValue = (content: string) => [
     ],
   } as MyParagraphElement,
 ];
+export interface PTPlateProps {
+  content:string;
+};
 
-export const PTPlate: React.FunctionComponent<IPTPlate> = ({ content }) => {
+export const PTPlate: React.FunctionComponent<PTPlateProps>=({ content }: PTPlateProps)=> {
   const [formatedValue, setFormatedValue] = useState<MyParagraphElement[]>(initialValue(content));
 
   useEffect(() => {
@@ -26,7 +25,7 @@ export const PTPlate: React.FunctionComponent<IPTPlate> = ({ content }) => {
   }, [content]);
 
   const editableProps: TEditableProps = {
-    placeholder: "Type1...",
+    placeholder: "Type2...",
   };
   return (
     <p>
