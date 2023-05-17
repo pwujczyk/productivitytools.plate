@@ -30,13 +30,9 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^18.15.11",
-    "@types/react": "^18.0.35",
-    "@types/react-dom": "^18.0.11",
     "@types/styled-components": "^5.1.26",
     "@udecode/plate": "^20.6.3",
     "@udecode/plate-basic-elements": "^20.4.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "slate": "^0.93.0",
     "slate-history": "^0.93.0",
@@ -46,5 +42,10 @@
     "typescript": "^5.0.4",
     "web-vitals": "^2.1.4"
   },
-  "peerDependencies": {}
+  "peerDependencies": {
+    "@types/react": "^18.0.35",
+    "@types/react-dom": "^18.0.11",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
 }
