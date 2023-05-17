@@ -30,14 +30,14 @@ const initialValue = (content: string) => [
   } as MyParagraphElement,
 ];
 export interface PTPlateProps {
-  content:string;
+  content:MyParagraphElement[];
 };
 
 export const PTPlate: React.FunctionComponent<PTPlateProps>=({ content }: PTPlateProps)=> {
-  const [formatedValue, setFormatedValue] = useState<MyParagraphElement[]>(initialValue(content));
+  const [formatedValue, setFormatedValue] = useState<MyParagraphElement[]>(content);
 
   useEffect(() => {
-    setFormatedValue(initialValue(content));
+    setFormatedValue(content);
   }, [content]);
 
   const editableProps: TEditableProps = {
