@@ -3,18 +3,25 @@ import { Plate, TEditableProps,useResetPlateEditor } from "@udecode/plate";
 import { MyParagraphElement } from "./typescript/plateTypes";
 
 const ResetEditorOnValueChange = ({ value }: { value: MyParagraphElement[] }) => {
+  // console.log("ResetEditorOnValueChange");
+  // console.log(value);
   const resetPlateEditor = useResetPlateEditor();
   const isFirst = useRef(true);
-  console.log("useffect2");
+  // console.log("isFirst");
+  // console.log(isFirst.current);
   useEffect(() => {
+    // console.log("useEffect");
+    // console.log(isFirst);
+
     if (isFirst.current) {
-      console.log("useffect1");
+      // console.log("isFirst.current");
+      // console.log(isFirst.current);
       isFirst.current = false;
       return;
     }
-
     resetPlateEditor();
-  }, [value, resetPlateEditor]);
+  }, [value, resetPlateEditor, isFirst]);
+ // console.log("return null");
 
   return null;
 };
@@ -34,11 +41,20 @@ export interface PTPlateProps {
 };
 
 export const PTPlate: React.FunctionComponent<PTPlateProps>=({ content }: PTPlateProps)=> {
-  const [formatedValue, setFormatedValue] = useState<MyParagraphElement[]>(content);
+  const [value, setValue] = useState<MyParagraphElement[]>(content);
+  const [resetValue, setResetValue] = useState<MyParagraphElement[]>(content);
 
+  //if we use directly prop value, there was a delay in updating field when propValue changed 
+  //if we used value, the restet field was invoked every time when we started writing, which make writing not possible
   useEffect(() => {
-    setFormatedValue(content);
+    setValue(content);
+    setResetValue(content);
   }, [content]);
+
+  const change = (e: MyParagraphElement[]) => {
+    setValue(e);
+  };
+
 
   const editableProps: TEditableProps = {
     placeholder: "Type2...",
@@ -46,8 +62,8 @@ export const PTPlate: React.FunctionComponent<PTPlateProps>=({ content }: PTPlat
   return (
     <p>
       {/* <Plate editableProps={editableProps} initialValue={formatedValue} /> */}
-      <Plate<MyParagraphElement[]> editableProps={{ placeholder: "Type…" }} value={formatedValue}>
-        <ResetEditorOnValueChange value={formatedValue} />
+      <Plate<MyParagraphElement[]> editableProps={{ placeholder: "Type…" }} value={value} onChange={change}>
+        <ResetEditorOnValueChange value={resetValue} />
       </Plate>
     </p>
   );
