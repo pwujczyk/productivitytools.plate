@@ -1,5 +1,5 @@
-import React, { useState, useEffect,useRef } from "react";
-import { Plate, TEditableProps,useResetPlateEditor } from "@udecode/plate";
+import React, { useState, useEffect, useRef } from "react";
+import { Plate, TEditableProps, useResetPlateEditor } from "@udecode/plate";
 import { MyParagraphElement } from "./typescript/plateTypes";
 
 const ResetEditorOnValueChange = ({ value }: { value: MyParagraphElement[] }) => {
@@ -21,7 +21,7 @@ const ResetEditorOnValueChange = ({ value }: { value: MyParagraphElement[] }) =>
     }
     resetPlateEditor();
   }, [value, resetPlateEditor, isFirst]);
- // console.log("return null");
+  // console.log("return null");
 
   return null;
 };
@@ -36,15 +36,19 @@ const initialValue = (content: string) => [
     ],
   } as MyParagraphElement,
 ];
-export interface PTPlateProps {
-  content:MyParagraphElement[];
-};
 
-export const PTPlate: React.FunctionComponent<PTPlateProps>=({ content }: PTPlateProps)=> {
+type PTPlateContentChanged = (content: MyParagraphElement[]) => void;
+
+export interface PTPlateProps {
+  content: MyParagraphElement[];
+  contentChanged: PTPlateContentChanged;
+}
+
+export const PTPlate: React.FunctionComponent<PTPlateProps> = ({ content, contentChanged }: PTPlateProps) => {
   const [value, setValue] = useState<MyParagraphElement[]>(content);
   const [resetValue, setResetValue] = useState<MyParagraphElement[]>(content);
 
-  //if we use directly prop value, there was a delay in updating field when propValue changed 
+  //if we use directly prop value, there was a delay in updating field when propValue changed
   //if we used value, the restet field was invoked every time when we started writing, which make writing not possible
   useEffect(() => {
     setValue(content);
@@ -53,8 +57,8 @@ export const PTPlate: React.FunctionComponent<PTPlateProps>=({ content }: PTPlat
 
   const change = (e: MyParagraphElement[]) => {
     setValue(e);
+    contentChanged(e);
   };
-
 
   const editableProps: TEditableProps = {
     placeholder: "Type2...",
