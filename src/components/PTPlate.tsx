@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Plate, TEditableProps, useResetPlateEditor } from "@udecode/plate";
 import { MyParagraphElement } from "./typescript/plateTypes";
 
-const ResetEditorOnValueChange = ({ value }: { value: MyParagraphElement[] }) => {
+const ResetEditorOnValueChange = ({ value }: { value?: MyParagraphElement[] }) => {
   // console.log("ResetEditorOnValueChange");
   // console.log(value);
   const resetPlateEditor = useResetPlateEditor();
@@ -40,20 +40,24 @@ const initialValue = (content: string) => [
 type PTPlateContentChanged = (content: MyParagraphElement[]) => void;
 
 export interface PTPlateProps {
-  content: MyParagraphElement[];
+  content: MyParagraphElement[],
+  forceResetContent?: MyParagraphElement[];
   contentChanged: PTPlateContentChanged;
-}
+};
 
-export const PTPlate: React.FunctionComponent<PTPlateProps> = ({ content, contentChanged }: PTPlateProps) => {
-  const [value, setValue] = useState<MyParagraphElement[]>(content);
-  const [resetValue, setResetValue] = useState<MyParagraphElement[]>(content);
+//content sets initial content
+//foceResetContent, resets editor and sets new content
+//we cannot use content to reset, as later we are binding content to use state and in the contentChange we are updating state, if we bind content to reset it results in constant refresh
+export const PTPlate: React.FunctionComponent<PTPlateProps> = ({ content,forceResetContent, contentChanged }: PTPlateProps) => {
+  const [value, setValue] = useState<MyParagraphElement[] | undefined>(content);
+  const [resetValue, setResetValue] = useState<MyParagraphElement[] | undefined>(content);
 
   //if we use directly prop value, there was a delay in updating field when propValue changed
   //if we used value, the restet field was invoked every time when we started writing, which make writing not possible
   useEffect(() => {
-    setValue(content);
-    setResetValue(content);
-  }, [content]);
+    setValue(forceResetContent);
+    setResetValue(forceResetContent);
+  }, [forceResetContent]);
 
   const change = (e: MyParagraphElement[]) => {
     setValue(e);
@@ -63,6 +67,7 @@ export const PTPlate: React.FunctionComponent<PTPlateProps> = ({ content, conten
   const editableProps: TEditableProps = {
     placeholder: "Type2...",
   };
+
   return (
     <p>
       {/* <Plate editableProps={editableProps} initialValue={formatedValue} /> */}
@@ -71,4 +76,4 @@ export const PTPlate: React.FunctionComponent<PTPlateProps> = ({ content, conten
       </Plate>
     </p>
   );
-};
+}
