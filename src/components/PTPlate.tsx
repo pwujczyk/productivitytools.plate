@@ -40,15 +40,21 @@ const initialValue = (content: string) => [
 type PTPlateContentChanged = (content: MyParagraphElement[]) => void;
 
 export interface PTPlateProps {
-  content: MyParagraphElement[],
+  content: MyParagraphElement[];
   forceResetContent?: MyParagraphElement[];
   contentChanged: PTPlateContentChanged;
-};
+  readOnly: boolean;
+}
 
 //content sets initial content
 //foceResetContent, resets editor and sets new content
 //we cannot use content to reset, as later we are binding content to use state and in the contentChange we are updating state, if we bind content to reset it results in constant refresh
-export const PTPlate: React.FunctionComponent<PTPlateProps> = ({ content,forceResetContent, contentChanged }: PTPlateProps) => {
+export const PTPlate: React.FunctionComponent<PTPlateProps> = ({
+  content,
+  forceResetContent,
+  contentChanged,
+  readOnly,
+}: PTPlateProps) => {
   const [value, setValue] = useState<MyParagraphElement[] | undefined>(content);
   const [resetValue, setResetValue] = useState<MyParagraphElement[] | undefined>(content);
 
@@ -67,13 +73,20 @@ export const PTPlate: React.FunctionComponent<PTPlateProps> = ({ content,forceRe
   const editableProps: TEditableProps = {
     placeholder: "Type2...",
   };
-
   return (
-    <p>
-      {/* <Plate editableProps={editableProps} initialValue={formatedValue} /> */}
-      <Plate<MyParagraphElement[]> editableProps={{ placeholder: "Type…" }} value={value} onChange={change}>
-        <ResetEditorOnValueChange value={resetValue} />
-      </Plate>
-    </p>
+    <div>
+      {readOnly ? (
+         <Plate<MyParagraphElement[]> editableProps={{ placeholder: "Type…" }} value={value} readOnly={true}></Plate>
+      ) : (
+        <Plate<MyParagraphElement[]>
+          editableProps={{ placeholder: "Type…" }}
+          value={value}
+          onChange={change}
+          readOnly={false}
+        >
+          <ResetEditorOnValueChange value={resetValue} />
+        </Plate>
+      )}
+    </div>
   );
-}
+};
