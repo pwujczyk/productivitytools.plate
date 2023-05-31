@@ -1,11 +1,27 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Plate, TEditableProps, useResetPlateEditor } from "@udecode/plate";
-import { MyParagraphElement } from "./typescript/plateTypes";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import {
+  Plate,
+  PlateProvider,
+  TEditableProps,
+  useResetPlateEditor,
+  createBasicElementsPlugin, //h1, quote, code
+  ELEMENT_H1, //forced layout
+  createPlateUI,
+  ELEMENT_CODE_BLOCK,
+  CodeBlockElement,
+  withProps,
+  StyledElement,
+} from "@udecode/plate";
+import { MyParagraphElement, MyValue, createMyPlugins } from "./typescript/plateTypes";
+import { Toolbar } from "./toolbar/Toolbar";
+import { ToolbarButtons } from "./ToolbarButtons";
+import { withStyledPlaceHolders } from "./placeholder/withStyledPlaceHolders";
 
-const ResetEditorOnValueChange = ({ value }: { value?: MyParagraphElement[] }) => {
-  // console.log("ResetEditorOnValueChange");
+const ResetEditorOnValueChange = ({ value }: { value?: MyValue }) => {
+  console.log("ResetEditorOnValueChange");
   // console.log(value);
   const resetPlateEditor = useResetPlateEditor();
+
   const isFirst = useRef(true);
   // console.log("isFirst");
   // console.log(isFirst.current);
@@ -37,14 +53,29 @@ const initialValue = (content: string) => [
   } as MyParagraphElement,
 ];
 
-type PTPlateContentChanged = (content: MyParagraphElement[]) => void;
+type PTPlateContentChanged = (content: MyValue) => void;
 
 export interface PTPlateProps {
-  content: MyParagraphElement[];
-  forceResetContent?: MyParagraphElement[];
+  content: MyValue;
+  forceResetContent?: MyValue;
   contentChanged: PTPlateContentChanged;
   readOnly: boolean;
 }
+
+let components = createPlateUI({
+  [ELEMENT_CODE_BLOCK]: CodeBlockElement,
+  [ELEMENT_H1]: withProps(StyledElement, {
+    styles: {
+      root: {
+        margin: "0 0 0 0",
+        fontSize: "25px",
+        fontWeight: "1000",
+      },
+    },
+  }),
+  // customize your components by plugin key
+});
+components = withStyledPlaceHolders(components);
 
 //content sets initial content
 //foceResetContent, resets editor and sets new content
@@ -55,8 +86,8 @@ export const PTPlate: React.FunctionComponent<PTPlateProps> = ({
   contentChanged,
   readOnly,
 }: PTPlateProps) => {
-  const [value, setValue] = useState<MyParagraphElement[] | undefined>(content);
-  const [resetValue, setResetValue] = useState<MyParagraphElement[] | undefined>(content);
+  const [value, setValue] = useState<MyValue | undefined>(content);
+  const [resetValue, setResetValue] = useState<MyValue | undefined>(content);
 
   //if we use directly prop value, there was a delay in updating field when propValue changed
   //if we used value, the restet field was invoked every time when we started writing, which make writing not possible
@@ -65,28 +96,50 @@ export const PTPlate: React.FunctionComponent<PTPlateProps> = ({
     setResetValue(forceResetContent);
   }, [forceResetContent]);
 
-  const change = (e: MyParagraphElement[]) => {
+  const change = (e: MyValue) => {
     setValue(e);
     contentChanged(e);
+    console.log("content changed");
   };
 
   const editableProps: TEditableProps = {
     placeholder: "Type2...",
   };
+
+  const plugins = useMemo(
+    () =>
+      createMyPlugins(
+        [
+          createBasicElementsPlugin(), //h1-h6, quote, codes
+        ],
+        {
+          components: components,
+        }
+      ),
+    []
+  );
+
   return (
     <div>
-      {readOnly ? (
+      {/* {readOnly ? (
          <Plate<MyParagraphElement[]> editableProps={{ placeholder: "Type…" }} value={value} readOnly={true}></Plate>
-      ) : (
-        <Plate<MyParagraphElement[]>
-          editableProps={{ placeholder: "Type…" }}
-          value={value}
-          onChange={change}
-          readOnly={false}
-        >
+      ) : ( */}
+       <PlateProvider<MyValue> value={value} onChange={change} plugins={plugins}>
+        <Toolbar>
+          <ToolbarButtons />
+        </Toolbar>
+        <Plate<MyValue> editableProps={{ placeholder: "Type…" }} readOnly={false}>
           <ResetEditorOnValueChange value={resetValue} />
         </Plate>
-      )}
+      </PlateProvider>
+      {/* )} */}
+      <span>Plate content in the ptplate/index:</span>
+      <br></br>
+      <span>{JSON.stringify(value)}</span>
+      <br></br>
+      <span>Reset value in the ptplate/index:</span>
+      <br></br>
+      <span>{JSON.stringify(resetValue)}</span>
     </div>
   );
 };

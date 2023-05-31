@@ -1,3 +1,3 @@
 export * from "./PTButton";
 export * from "./PTPlate";
-export { MyParagraphElement } from "./typescript/plateTypes";
+export { MyValue } from "./typescript/plateTypes";
