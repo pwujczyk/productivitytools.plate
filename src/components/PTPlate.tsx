@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
-  useResetPlateEditor,
+  useResetPlateEditor,//not used in this project, but I am copying it to different one
   createBasicElementsPlugin, //h1, quote, code
   createResetNodePlugin, //h1, quote, code
   createSoftBreakPlugin, //h1, quote, code
@@ -16,9 +16,11 @@ import {
   createExitBreakPlugin,
   createHeadingPlugin,
   StyledElement,
-  createPluginFactory
+  createPluginFactory,
+  createLinkPlugin
 } from "@udecode/plate";
 import { forcedLayoutPlugin } from "./forced-layout/forcedLayoutPlugin"; //forced layout
+import { trailingBlockPlugin } from "./trailing-block/trailingBlockPlugin"; //forced layout
 import { withProps } from "@udecode/plate";
 import {
   createMyPlugins,
@@ -34,7 +36,7 @@ import { softBreakPlugin } from "./soft-break/softBreakPlugin";
 import { exitBreakPlugin } from "./exit-break/exitBreakPlugin";
 import { ELEMENT_TITLE } from "./pttitle/titleconsts";
 import { createTitlePlugin } from "./pttitle/titleplugin"
-
+import { linkPlugin } from "./link/linkPlugin";
 
 import { withStyledPlaceHolders } from "./placeholder/withStyledPlaceHolders";
 
@@ -142,12 +144,13 @@ export const PTPlate: React.FunctionComponent<PTPlateProps> = ({
           createBasicElementsPlugin(), //h1-h6, quote, code
           createTitlePlugin(),
           createResetNodePlugin(resetBlockTypePlugin), //reseting formatinog on enter
-          //createSoftBreakPlugin(softBreakPlugin), //enter new line without stsarting new block, shift_enter
+          createSoftBreakPlugin(softBreakPlugin), //enter new line without stsarting new block, shift_enter
 
           createNormalizeTypesPlugin(forcedLayoutPlugin), //forced layout
-         // createTrailingBlockPlugin(trailingBlockPlugin), //forced layout
+          createTrailingBlockPlugin(trailingBlockPlugin), //forced layout
           createExitBreakPlugin(exitBreakPlugin), //forced layout
           //createHeadingPlugin() //forced layout
+          createLinkPlugin(linkPlugin)//urls
         ],
         {
           components: components
