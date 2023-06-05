@@ -1,6 +1,8 @@
 import { BasicElementToolbarButtons } from "./basic-elements/BasicElementToolbarButtons";
 import { Link } from "@styled-icons/material/Link";
-import { LinkToolbarButton } from "@udecode/plate";
+import { LinkToolbarButton,ToolbarButton } from "@udecode/plate";
+import { IndentToolbarButtons } from './indent/IndentToolbarButtons';
+import { ListToolbarButtons } from './list/ListToolbarButtons';
 import React from 'react'
 
 export const ToolbarButtons = () => {
@@ -8,6 +10,9 @@ export const ToolbarButtons = () => {
     <>
       <BasicElementToolbarButtons />
       <LinkToolbarButton icon={<Link />} />
+      <ListToolbarButtons />
+      <IndentToolbarButtons />
+      
       {/* <ListToolbarButtons />
       <IndentToolbarButtons />
       <BasicMarkToolbarButtons />
