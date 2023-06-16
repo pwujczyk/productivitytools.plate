@@ -106,6 +106,8 @@ export const PTPlate: React.FunctionComponent<PTPlateProps> = ({
 }: PTPlateProps) => {
   const [value, setValue] = useState<MyValue | undefined>(content);
   const [resetValue, setResetValue] = useState<MyValue | undefined>(content);
+  const [showDebug, setShowDebug] = useState<boolean>(false);
+
 
   //if we use directly prop value, there was a delay in updating field when propValue changed
   //if we used value, the restet field was invoked every time when we started writing, which make writing not possible
@@ -167,14 +169,21 @@ export const PTPlate: React.FunctionComponent<PTPlateProps> = ({
           <ResetEditorOnValueChange value={resetValue} />
         </Plate>
       </PlateProvider>
-      {/* )} */}
-      <span>Plate content in the ptplate/index:</span>
-      <br></br>
-      <span>{JSON.stringify(value)}</span>
-      <br></br>
-      <span>Reset value in the ptplate/index:</span>
-      <br></br>
-      <span>{JSON.stringify(resetValue)}</span>
+      <input type="checkbox" onClick={() => setShowDebug(!showDebug)}></input>
+      <span style={{color:'lightgray'}}>show debug</span>
+      <br />
+      {showDebug && (
+        <div>
+          {/* )} */}
+          <span>Plate content in the ptplate/index:</span>
+          <br></br>
+          <span>{JSON.stringify(value)}</span>
+          <br></br>
+          <span>Reset value in the ptplate/index:</span>
+          <br></br>
+          <span>{JSON.stringify(resetValue)}</span>
+        </div>
+      )}
     </div>
   );
 };
