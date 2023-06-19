@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
-  useResetPlateEditor,//if in editor with plugins, not used, if in plate it is used
+  useResetPlateEditor, //if in editor with plugins, not used, if in plate it is used
   createBasicElementsPlugin, //h1, quote, code
   createResetNodePlugin, //h1, quote, code
   createSoftBreakPlugin, //h1, quote, code
@@ -18,33 +18,30 @@ import {
   StyledElement,
   createPluginFactory,
   createLinkPlugin,
-  createIndentPlugin,//list
-  createListPlugin,//list
-  createIndentListPlugin,//list
-  createTablePlugin,//table
-
+  createIndentPlugin, //list
+  createListPlugin, //list
+  createIndentListPlugin, //list
+  createTablePlugin, //table
+  createMediaEmbedPlugin,//image
+  createImagePlugin, //image
+  createSelectOnBackspacePlugin, //image
+  ELEMENT_IMAGE,//image
 } from "@udecode/plate";
 import { forcedLayoutPlugin } from "./forced-layout/forcedLayoutPlugin"; //forced layout
 import { trailingBlockPlugin } from "./trailing-block/trailingBlockPlugin"; //forced layout
 import { withProps } from "@udecode/plate";
-import {
-  createMyPlugins,
-  MyParagraphElement,
-  MyEditor,
-  MyPlatePlugin,
-  MyValue
-} from "./typescript/plateTypes";
+import { createMyPlugins, MyParagraphElement, MyEditor, MyPlatePlugin, MyValue } from "./typescript/plateTypes";
 import { Toolbar } from "./toolbar/Toolbar";
 import { ToolbarButtons } from "./ToolbarButtons";
 import { resetBlockTypePlugin } from "./reset-node/resetBlockTypePlugin";
 import { softBreakPlugin } from "./soft-break/softBreakPlugin";
 import { exitBreakPlugin } from "./exit-break/exitBreakPlugin";
 import { ELEMENT_TITLE } from "./pttitle/titleconsts";
-import { createTitlePlugin } from "./pttitle/titleplugin"
+import { createTitlePlugin } from "./pttitle/titleplugin";
 import { linkPlugin } from "./link/linkPlugin";
-import { indentPlugin } from './indent/indentPlugin';
-import { indentListPlugin } from './indent-list/indentListPlugin';
-import {components} from './components/components'
+import { indentPlugin } from "./indent/indentPlugin";
+import { indentListPlugin } from "./indent-list/indentListPlugin";
+import { components } from "./components/components";
 
 import { withStyledPlaceHolders } from "./placeholder/withStyledPlaceHolders";
 
@@ -146,6 +143,15 @@ export const PTPlate: React.FunctionComponent<PTPlateProps> = ({
             options: {
               initialTableWidth: 600,
               // disableMarginLeft: true,
+            },
+          }),
+          createImagePlugin(),
+          createMediaEmbedPlugin(),
+          createSelectOnBackspacePlugin({
+            options: {
+              query: {
+                allow: [ELEMENT_IMAGE],
+              },
             },
           }),
         ],
