@@ -15,6 +15,40 @@
 My implementation of the Plate editor. I will be using it in my projects.
 Right now here I list the problems which I have with creating it and running. 
 
+## Updating element content
+Plate has its own state so it won't update if we do classic
+```js
+const[state, setState]=useState();
+<Component value={state} onChange={setState}/>
+```
+
+We need to use **ResetEditorOnValueChange** it is implemented in this PTPlate. To use it we need to set **forceResetContent** property.
+
+```js
+<PTPlate content={content} forceResetContent={content} contentChanged={contentChanged} readOnly={readOnly}></PTPlate>
+```
+
+But it will update component and lose focus so it is not possible to write in it.
+
+To make it work. forceResetContent should be used only when we know that the whole text inside should change:
+
+```js
+const [initialValue, setInitialValue] = useState(
+    JSON.parse(`[{"type":"title","children":[{"text":"x"}]},{"type":"p","children":[{"text":"empty"}]}]`)
+  );
+const ptplateChanged = (e) => {
+    console.log("PTPlateChanged");
+    console.log(e);
+    //do what you want but do not invoke setInitialValue
+  };
+
+useEffect(() => {
+    setInitialValue(JSON.parse(selectedElement.details));
+  }, [selectedElement.elementId]);
+<PTPlate contentChanged={ptplateChanged} content={initialValue} forceResetContent={initialValue}></PTPlate>
+
+```
+
 ## Issues
 Use state not working, empty screen is showing and in console we see errror
 
@@ -84,3 +118,20 @@ skipLib check did the trick. I went one by one throuth the snipped below and add
     "./node_modules/@types/"
   ]
 }
+
+
+Examples
+
+
+```
+<PTPlate
+  contentChanged={ptplateChanged}
+  content={JSON.parse(selectedElement.details)}
+  forceResetContent={JSON.parse(selectedElement.details)}
+></PTPlate>
+```
+
+properties
+- content - object plate content of the control
+- forceResetContent - object plate content of the control, use if you would like to update content of the ptplate
+- contentChanged - function invoked when content changed (for example new letter added)
