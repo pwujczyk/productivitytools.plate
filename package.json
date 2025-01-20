@@ -1,6 +1,6 @@
 {
   "name": "productivitytools.plate",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "PT implementation of plate",
   "main": "dist/index",
   "typings": "dist/index.js",
