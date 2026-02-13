@@ -1,6 +1,6 @@
 {
   "name": "productivitytools.plate",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "PT implementation of plate",
   "main": "dist/index",
   "typings": "dist/index.js",
@@ -28,11 +28,11 @@
     "@styled-icons/boxicons-regular": "^10.47.0",
     "@styled-icons/foundation": "^10.46.0",
     "@styled-icons/material": "^10.47.0",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^18.15.11",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.15.29",
     "@types/styled-components": "^5.1.26",
     "@udecode/plate": "^20.6.3",
     "@udecode/plate-basic-elements": "^20.4.0",
@@ -41,9 +41,9 @@
     "slate-history": "^0.93.0",
     "slate-hyperscript": "^0.77.0",
     "slate-react": "^0.93.0",
-    "styled-components": "^5.3.9",
+    "styled-components": "^6.1.18",
     "typescript": "^5.0.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^5.0.2"
   },
   "peerDependencies": {
     "@types/react": "^18.0.35",
